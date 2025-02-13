@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Log-in</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  
+  <script>
+    function redirectToRolePage(event) {
+      event.preventDefault();
+      const role = document.querySelector('input[name="role"]:checked').value;
+      if (role === "Doctor") {
+        window.location.href = "doctor.html";
+      } else if (role === "Patient") {
+        window.location.href = "patient.html";
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <img src="images/Screenshot_2025-01-29_235613-removebg-preview.png" alt="logo">
+  <div class="tabs">
+    <a href="#" class="active">Login</a>
+    <a href="signup.html" style="color: #5d5d5d; left: 30%;">Sign up</a>
+  </div>
+
+  <form onsubmit="redirectToRolePage(event)">
+    <input type="email" id="email" placeholder="Enter your email" required>
+    <input type="password" id="p" placeholder="Enter your password" required>
+    <br>
+    <div class="rolesholder">
+      <label class="roles">Your role: </label>
+      <label class="roles">
+        <input type="radio" name="role" value="Doctor" id="doctorRole">Doctor
+      </label>
+      <label class="roles">
+        <input type="radio" name="role" value="Patient" id="patientRole">Patient
+      </label>
+    </div>
+    <input type="submit" value="Log In" id="log-button">
+  </form>
+</body>
+
+</html>

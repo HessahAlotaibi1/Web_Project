@@ -1,0 +1,172 @@
+h2 {
+  text-align: left;
+  margin-left: 10%;
+}
+
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #B1F0F7;
+  color: #006e6e;
+  font-family: Arial;
+  padding: 12px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  background-color: #006e6e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #004c4c;
+}
+
+img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.middle {
+  background-color: #fdfdf7;
+}
+
+.header {
+  background-image: url('../images/Blue\ Background\ GIF\ by\ Maytronics.gif');
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  text-align: left;
+  justify-content: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden;
+}
+
+.header,
+.middle {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+#patientName {
+  color: #006e6e;
+}
+
+
+#sign {
+  color: rgb(120, 120, 120);
+  text-decoration: none;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 10px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  float: right;
+  margin-right: 20px;
+}
+
+#sign:hover {
+  color: #006e6e;
+  transform: scale(1.1);
+  font-size: 18px;
+}
+
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.9s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#booking {
+  position: relative;
+  left: 980px;
+  top: 55px;
+  display: inline;
+  background-color: #B1F0F7;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 150px;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding: 11px;
+  margin-right: 20%;
+
+}
+
+#booking:hover {
+  color: #006e6e;
+  transform: scale(1.1);
+  font-size: 18px;
+}
+
+.info {
+  font-family: "EB Garamond";
+}
+
+#patientInfo {
+  list-style: none;
+  padding: 0;
+  font-size: 20px;
+}
+
+li {
+  position: relative;
+  left: 30px;
+  list-style: circle;
+}
+
+.cancel {
+  color: #006e6e;
+}
+
+.cancel:active {
+  color: #04b3b3;
+}

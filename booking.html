@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patient | Book an Appointment</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/booking.css">
+  
+</head>
+
+<body id="Patient">
+  <div class="main">
+    <h1>Book an Appointment</h1>
+
+    <!-- First Form: Select Specialty -->
+    <form id="specialty-form">
+      <div class="form-group">
+        <label for="speciality">Speciality:</label>
+        <select name="speciality" id="speciality" required>
+          <option value="" disabled selected>Select a speciality</option>
+          <optgroup label="General Medicine Clinic">
+            <option value="Routine Check-ups">Routine Check-ups</option>
+            <option value="Medical Consultations">Medical Consultations</option>
+            <option value="Vaccinations">Vaccinations</option>
+            <option value="Geriatric Care">Geriatric Care</option>
+            <option value="Laboratory Tests">Laboratory Tests </option>
+            <option value="Regular Health Check-ups">Regular Health Check-ups</option>
+          </optgroup>
+
+          <optgroup label="Dermatology & Aesthetic Clinic">
+            <option value="Dermatology">Dermatology</option>
+            <option value="Cosmetic & Laser Treatments">Cosmetic & Laser Treatments</option>
+          </optgroup>
+
+          <optgroup label="Dentistry">
+            <option value="Dentistry">Dentistry</option>
+          </optgroup>
+        </select>
+      </div>
+      <button type="button" id="select-specialty-btn">Submit</button>
+    </form>
+
+    <!-- Second Form: Booking Details -->
+    <form id="booking-form" style="display:none;">
+      <div class="form-group">
+        <label>Select Doctor:</label>
+        <select name="doctor-name" id="doctor-name" required>
+          <option value="" disabled selected>Select a Doctor</option>
+        </select><br>
+      </div>
+      <div class="form-group">
+        <label>Select Date:</label>
+        <input type="date" id="appointment-date" required><br>
+      </div>
+      <div class="form-group">
+        <label>Select Time:</label>
+        <input type="time" id="appointment-time" required><br>
+      </div>
+      <div class="form-group">
+        <label>Reason for Visit:</label>
+        <textarea name="reason" id="reason" required></textarea><br>
+      </div>
+      <button id="booking" type="submit"><a href="patient.html">Submit Booking</a> </button>
+    </form>
+
+  </div>
+
+  <script>
+    const doctorsBySpecialty = {
+      "Routine Check-ups": ["Dr. Ahmed Hassan", "Dr. John Smith"],
+      "Medical Consultations": ["Dr. Mona Youssef", "Dr. Emily Johnson"],
+      "Vaccinations": ["Dr. Khaled Omar", "Dr. Sophia Martinez"],
+      "Geriatric Care": ["Dr. Salma Nabil", "Dr. Robert Williams"],
+      "Laboratory Tests": ["Dr. Youssef Adel", "Dr. David Brown"],
+      "Regular Health Check-ups": ["Dr. Hanaa Mostafa", "Dr. Laura Davis"],
+      "Dermatology": ["Dr. Layla Saeed", "Dr. Lisa Brain"],
+      "Cosmetic & Laser Treatments": ["Dr. Rami Fares", "Dr. Julia Thompson"],
+      "Dentistry": ["Dr. Omar Tarek", "Dr. Chris Miller"]
+    };
+
+    document.getElementById("speciality").addEventListener("change", function () {
+      const selectedSpecialty = this.value;
+
+      if (!selectedSpecialty) return;
+
+      const doctorDropdown = document.getElementById("doctor-name");
+      doctorDropdown.innerHTML = '<option value="" disabled selected>Select a Doctor</option>';
+
+      if (doctorsBySpecialty[selectedSpecialty]) {
+        doctorsBySpecialty[selectedSpecialty].forEach((doctor) => {
+          const option = document.createElement("option");
+          option.value = doctor;
+          option.textContent = doctor;
+          doctorDropdown.appendChild(option);
+        });
+      }
+    });
+
+    document.getElementById("select-specialty-btn").addEventListener("click", function () {
+      const selectedSpecialty = document.getElementById("speciality").value;
+
+      if (!selectedSpecialty) {
+        alert("Please select a specialty!");
+        return;
+      }
+
+      document.getElementById("booking-form").style.display = "block";
+    });
+  </script>
+
+</body>
+
+</html>

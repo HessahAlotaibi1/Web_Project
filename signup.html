@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sign-up</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/singup.css">
+  
+  <script src="script.js"></script>
+
+</head>
+
+<body>
+  <img src="images/Screenshot_2025-01-29_235613-removebg-preview.png" alt="logo">
+  <div class="tabs">
+    <a href="login.html" style="color: #5d5d5d; ">Login</a>
+    <a href="#" class="active" style="left: 30%;">Sign up</a>
+  </div>
+
+  <div class="rolesholder">
+    <label class="roles">Your role: </label>
+    <label class="roles">
+      <input type="radio" name="role" value="Doctor" id="doctorRole">Doctor
+    </label>
+    <label class="roles">
+      <input type="radio" name="role" value="Patient" id="patientRole">Patient
+    </label>
+  </div>
+
+
+  <!-- Form for Doctor -->
+  <form id="Doctor">
+    <div class="form-group">
+      <label for="firstName">First name:</label>
+      <input type="text" id="firstName" placeholder="Your first name..">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last name:</label>
+      <input type="text" id="lastName" placeholder="Your last name..">
+    </div>
+    <div class="form-group">
+      <label for="doctorID">ID:</label>
+      <input type="text" id="doctorID" placeholder="Your ID..">
+    </div>
+    <div class="form-group">
+      <label for="photo">Photo:</label>
+      <input type="file" id="photo">
+    </div>
+    <div class="form-group">
+      <label for="speciality">Speciality:</label>
+      <select name="speciality" id="speciality" required>
+        <option value="" disabled selected>Select your speciality</option>
+        <optgroup label="General Medicine Clinic">
+          <option value="Routine Check-ups">Routine Check-ups</option>
+          <option value="Medical Consultations">Medical Consultations</option>
+          <option value="Vaccinations">Vaccinations</option>
+          <option value="Geriatric Care">Geriatric Care</option>
+          <option value="Laboratory Tests">Laboratory Tests </option>
+          <option value="Regular Health Check-ups">Regular Health Check-ups</option>
+        </optgroup>
+
+        <optgroup label="Dermatology & Aesthetic Clinic">
+          <option value="Dermatology">Dermatology</option>
+          <option value="Cosmetic & Laser Treatments">Cosmetic & Laser Treatments</option>
+        </optgroup>
+
+        <optgroup label="Dentistry">
+          <option value="Dentistry">Dentistry</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Your email..">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Your password..">
+    </div>
+    <button class="signup" type="button" onclick="saveUserData('doctor')">Sign-up</button>
+  </form>
+
+  <!-- Form for Patient -->
+  <form id="Patient">
+    <div class="form-group">
+      <label for="patientFirstName">First name:</label>
+      <input type="text" id="patientFirstName" placeholder="Your first name..">
+    </div>
+    <div class="form-group">
+      <label for="patientLastName">Last name:</label>
+      <input type="text" id="patientLastName" placeholder="Your last name..">
+    </div>
+    <div class="form-group">
+      <label for="patientID">ID:</label>
+      <input type="text" id="patientID" placeholder="Your ID..">
+    </div>
+    <div class="gender-group">
+      <label>Gender:</label>
+      <label><input type="radio" name="gender" value="Female" checked> Female</label>
+      <label><input type="radio" name="gender" value="Male"> Male</label>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of birth:</label>
+      <input type="date" id="dob" placeholder="Your date of birth..">
+    </div>
+    <div class="form-group">
+      <label for="patientEmail">Email:</label>
+      <input type="email" id="patientEmail" placeholder="Your email..">
+    </div>
+    <div class="form-group">
+      <label for="patientPassword">Password:</label>
+      <input type="password" id="patientPassword" placeholder="Your password..">
+    </div>
+    <button class="signup" type="button" onclick="saveUserData('patient')">Sign-up</button>
+  </form>
+
+  <script>
+    const roleRadios = document.getElementsByName('role');
+    const doctorForm = document.getElementById('Doctor');
+    const patientForm = document.getElementById('Patient');
+    function showForm() {
+      doctorForm.style.display = 'none';
+      patientForm.style.display = 'none';
+      if (roleRadios[0].checked) {
+        doctorForm.style.display = 'block';
+      } else if (roleRadios[1].checked) {
+        patientForm.style.display = 'block';
+      }
+    }
+    roleRadios.forEach(radio => {
+      radio.addEventListener('change', showForm);
+    });
+    window.onload = showForm;
+  </script>
+  <script>
+    function saveUserData(role) {
+      let userData = {};
+      let gender = document.querySelector('input[name="gender"]:checked')?.value;
+      if (role === "doctor") {
+        userData = {
+          firstName: document.getElementById("firstName").value,
+          lastName: document.getElementById("lastName").value,
+          id: document.getElementById("doctorID").value,
+          email: document.getElementById("email").value,
+          speciality: document.getElementById("speciality").value,
+          gender: gender,
+          photo: document.getElementById("photo").files[0]?.name
+        };
+      } else if (role === "patient") {
+        userData = {
+          firstName: document.getElementById("patientFirstName").value,
+          lastName: document.getElementById("patientLastName").value,
+          id: document.getElementById("patientID").value,
+          email: document.getElementById("patientEmail").value,
+          dob: document.getElementById("dob").value,
+          gender: gender
+        };
+      }
+      localStorage.setItem("userData", JSON.stringify(userData));
+      if (role === "doctor") {
+        window.location.href = "doctor.html";
+      } else {
+        window.location.href = "patient.html";
+      }
+    }
+    window.onload = function () {
+      document.getElementById("Doctor").style.display = "none";
+      document.getElementById("Patient").style.display = "none";
+    };
+    const doctorRole = document.getElementById("doctorRole");
+    const patientRole = document.getElementById("patientRole");
+    const octorForm = document.getElementById("Doctor");
+    const atientForm = document.getElementById("Patient");
+    function showForm() {
+      doctorForm.style.display = "none";
+      patientForm.style.display = "none";
+      if (doctorRole.checked) {
+        doctorForm.style.display = "block";
+      } else if (patientRole.checked) {
+        patientForm.style.display = "block";
+      }
+    }
+    doctorRole.addEventListener("change", showForm);
+    patientRole.addEventListener("change", showForm);
+  </script>
+  <script>
+    function saveUserData(role) {
+    let userData = {};
+    let gender = document.querySelector('input[name="gender"]:checked')?.value;
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
+
+    if (role === "doctor") {
+        let firstName = document.getElementById("firstName").value.trim();
+        let lastName = document.getElementById("lastName").value.trim();
+        let id = document.getElementById("doctorID").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let speciality = document.getElementById("speciality").value.trim();
+        let photo = document.getElementById("photo").files[0]?.name;
+
+        if (!firstName || !lastName || !id || !email || !speciality || !gender) {
+            alert("All fields are required except for the photo!");
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address!");
+            return;
+        }
+
+        userData = { firstName, lastName, id, email, speciality, gender, photo };
+    } 
+    
+    else if (role === "patient") {
+        let firstName = document.getElementById("patientFirstName").value.trim();
+        let lastName = document.getElementById("patientLastName").value.trim();
+        let id = document.getElementById("patientID").value.trim();
+        let email = document.getElementById("patientEmail").value.trim();
+        let dob = document.getElementById("dob").value.trim();
+
+        if (!firstName || !lastName || !id || !email || !dob || !gender) {
+            alert("All fields are required!");
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address!");
+            return;
+        }
+
+        userData = { firstName, lastName, id, email, dob, gender };
+    }
+
+    localStorage.setItem("userData", JSON.stringify(userData));
+
+    if (role === "doctor") {
+        window.location.href = "doctor.html";
+    } else {
+        window.location.href = "patient.html";
+    }
+}
+
+  </script>
+</body>
+
+</html>
