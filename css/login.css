@@ -1,0 +1,121 @@
+body {
+  background-image:url("../images/Blue\ Background\ GIF\ by\ Maytronics.gif");
+  background-size: cover;
+  background-position: center;
+  padding: 0.2em;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+img {
+  width: 20%;
+  height: auto;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tabs {
+  display: flex;
+  gap: 20px;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.tabs a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ccc;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.tabs a.active {
+  color: #00796b;
+  right: 50%;
+}
+
+.tabs a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: -30%;
+  width: 170%;
+  height: 2px;
+  background-color: #00796b;
+}
+
+form {
+  position: fixed;
+  text-align: center;
+  font-size: 25px;
+  padding: 20px;
+  width: 350px;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#email,
+#p {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #006e6e39;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+  box-shadow: 0 4px 8px #006e6e;
+  display: block;
+  margin: 10px 0;
+}
+
+#log-button {
+  width: 130px;
+  height: 30px;
+  border-radius: 150px;
+  background-color: #00bfbf;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 8px 16px rgba(128, 128, 128, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #006e6e;
+  text-decoration: none;
+  border: 1px solid;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 20px auto;
+}
+
+.rolesholder {
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  gap: 20px;
+}
+
+.roles {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  color: #006e6e;
+}
+
+.roles input[type="radio"] {
+  margin: 0 5px;
+}
+
+.roles label {
+  display: flex;
+  align-items: center;
+}
