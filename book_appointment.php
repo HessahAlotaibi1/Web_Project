@@ -4,20 +4,23 @@ include 'db_connection.php'; // الاتصال بقاعدة البيانات
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!isset($_SESSION['user_id'])) {
-        echo "يجب تسجيل الدخول لحجز موعد!";
-        exit;
+        die(json_encode(["status" => "error", "message" => "يجب تسجيل الدخول لحجز موعد!"]));
     }
 
     $patient_id = $_SESSION['user_id'];
-    $doctor_name = $_POST['doctor_name'];
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $reason = $_POST['reason'];
+    $doctor_name = htmlspecialchars(trim($_POST['doctor_name']));
+    $date = htmlspecialchars(trim($_POST['date']));
+    $time = htmlspecialchars(trim($_POST['time']));
+    $reason = htmlspecialchars(trim($_POST['reason']));
 
     // التحقق من أن جميع الحقول ممتلئة
     if (empty($doctor_name) || empty($date) || empty($time) || empty($reason)) {
-        echo "الرجاء ملء جميع الحقول!";
-        exit;
+        die(json_encode(["status" => "error", "message" => "الرجاء ملء جميع الحقول!"]));
+    }
+
+    // التحقق من صحة الاتصال بقاعدة البيانات
+    if (!$conn) {
+        die(json_encode(["status" => "error", "message" => "فشل الاتصال بقاعدة البيانات!"]));
     }
 
     // الحصول على معرف الطبيب بناءً على اسمه
@@ -29,8 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 
     if (!$doctor_id) {
-        echo "لم يتم العثور على الطبيب المحدد!";
-        exit;
+        die(json_encode(["status" => "error", "message" => "لم يتم العثور على الطبيب المحدد!"]));
     }
 
     // التحقق من عدم وجود موعد بنفس التوقيت
@@ -40,9 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        echo "هذا الموعد محجوز بالفعل! الرجاء اختيار وقت آخر.";
         $stmt->close();
-        exit;
+        die(json_encode(["status" => "error", "message" => "هذا الموعد محجوز بالفعل! الرجاء اختيار وقت آخر."]));
     }
     $stmt->close();
 
@@ -51,14 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("iisss", $patient_id, $doctor_id, $date, $time, $reason);
 
     if ($stmt->execute()) {
-        echo "تم الحجز بنجاح!";
+        echo json_encode(["status" => "success", "message" => "تم الحجز بنجاح!"]);
     } else {
-        echo "حدث خطأ أثناء الحجز، حاول مرة أخرى!";
+        echo json_encode(["status" => "error", "message" => "حدث خطأ أثناء الحجز، حاول مرة أخرى!"]);
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    echo "طلب غير صالح!";
+    echo json_encode(["status" => "error", "message" => "طلب غير صالح!"]);
 }
 ?>
