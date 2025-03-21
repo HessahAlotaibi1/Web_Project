@@ -1,5 +1,5 @@
 body {
-  background-image:url("../images/Blue\ Background\ GIF\ by\ Maytronics.gif");
+  background-image: url("../images/Background.gif");
   background-size: cover;
   background-position: center;
   padding: 0.2em;
@@ -80,7 +80,7 @@ form {
 
 #log-button {
   width: 130px;
-  height: 30px;
+  height: 35px;
   border-radius: 150px;
   background-color: #00bfbf;
   font-size: 18px;
@@ -90,10 +90,15 @@ form {
   transition: all 0.3s ease;
   color: #006e6e;
   text-decoration: none;
-  border: 1px solid;
-  transition: all 0.3s ease;
   display: block;
   margin: 20px auto;
+    border: none;
+
+}
+
+
+#log-button:hover {
+  transform: scale(1.1);
 }
 
 .rolesholder {
