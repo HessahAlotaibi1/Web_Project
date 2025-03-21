@@ -1,4 +1,4 @@
-h2 {
+section h2 {
   text-align: left;
   margin-left: 10%;
 }
@@ -47,7 +47,7 @@ button:hover {
   background-color: #004c4c;
 }
 
-img {
+table img {
   width: 90px;
   height: 90px;
   object-fit: cover;
@@ -64,7 +64,7 @@ a {
 }
 
 .header {
-  background-image: url('../images/Blue\ Background\ GIF\ by\ Maytronics.gif');
+  background-image: url("../images/Background.gif");
   background-size: cover;
   background-position: center;
   padding: 20px;
@@ -169,4 +169,89 @@ li {
 
 .cancel:active {
   color: #04b3b3;
+}
+
+  
+.footer {
+  background-image: url("../images/Background.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+  font-size: 18px;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+
+}
+
+.footer a:hover {
+  text-decoration: none;
+  color: #6a994e;
+}
+
+.footer h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.footer li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  width: 30%;
+  text-align: left;
+}
+
+.footer img {
+  width: 30px;
+  height: 30px;
+  transition: 0.3s;
+}
+
+.footer img:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .footer ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer li {
+    width: auto;
+    font-size: 16px;
+    justify-content: center;
+  }
+
+  .footer img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.copyright {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.8;
 }
