@@ -1,5 +1,5 @@
 body {
-  background-image: url('../images/Blue\ Background\ GIF\ by\ Maytronics.gif');
+  background-image: url("../images/Background.gif");
   background-size: cover;
   background-position: center;
   display: flex;
