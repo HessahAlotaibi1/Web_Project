@@ -30,7 +30,7 @@ function saveUserData(role) {
 
     localStorage.setItem("userData", JSON.stringify(userData));
 
-    window.location.href = role === "doctor" ? "doctor.html" : "patient.html";
+    window.location.href = role === "doctor" ? "doctor.php" : "patient.php";
 }
 
 function loadUserData() {
@@ -90,7 +90,7 @@ document.getElementById("booking-form").addEventListener("submit", function (eve
     .then(data => {
         alert(data); // عرض رسالة النجاح أو الفشل
         if (data.includes("تم الحجز بنجاح")) {
-            window.location.href = "patient.html"; // تحويل المستخدم بعد نجاح الحجز
+            window.location.href = "patient.php"; // تحويل المستخدم بعد نجاح الحجز
         }
     })
     .catch(error => console.error("Error:", error));

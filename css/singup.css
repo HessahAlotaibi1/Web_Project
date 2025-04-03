@@ -81,7 +81,7 @@ form {
   text-decoration: none;
   border: 1px;
   position: absolute;
-  top: 180%;
+  top: 190%;
   left: 50%;
   transform: translateX(-50%);
 }
