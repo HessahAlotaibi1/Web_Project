@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Homepage</title>
+  <link rel="stylesheet" href="css/patient.css">
+
+  <script src="script.js"></script>
+
+</head>
+
+<body>
+  <div class="header fade-in">
+    <a href="index.html" id="sign">Sign-out</a>
+    <header>
+      <h1 id="patientName">Welcome, </h1>
+    </header>
+    <section>
+      <h2 class="info" style="text-align: left;  margin-left: 0px; ">Your Information</h2>
+      <ul id="patientInfo"></ul>
+    </section>
+  </div>
+
+  <div class="middle fade-in">
+    <a href="booking.html" id="booking">Book an Appointment</a>
+    <section>
+      <h2>Your Appointments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Doctor's Name</th>
+            <th>Doctor's Photo</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="appointmentsTable">
+          <tr>
+            <td>2025-01-20</td>
+            <td>10:00 AM</td>
+            <td>Dr. Salma Nabil</td>
+            <td><img src="images/download.jpeg" alt="Doctor's Photo"></td>
+            <td>Pending</td>
+            <td><a class="cancel" href="#">Cancel</a></td>
+          </tr>
+          <tr>
+            <td>2025-01-08</td>
+            <td>02:00 PM</td>
+            <td>Dr. Lisa Brain</td>
+            <td><img src="images/download (1).jpeg" alt="Doctor's Photo"></td>
+            <td>Confirmed</td>
+            <td><a class="cancel" href="#">Cancel</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <footer class="footer">
+    <!-- Contact Us-->
+    <h2>Contact Us</h2>
+    <ul>
+      <li>
+        <img src="images/facebook.png" alt="facebook" />
+        <a href="#">Lumièreclinic</a>
+      </li>
+      <li>
+        <img src="images/social-media.png" alt="x" />
+        <a href="#">@LumièreClinic</a>
+      </li>
+      <li>
+        <img src="images/instagram.png" alt="instagram" />
+        <a href="#">@Lumière_clinic</a>
+      </li>
+      <li>
+        <img src="images/mail.png" alt="gmail" />
+        <a href="#">info@lumièreclinic.com</a>
+      </li>
+      <li>
+        <img src="images/phone.png" alt="phone" />
+        <a href="#">+966 501 234 567</a>
+      </li>
+    </ul>
+    <div class="copyright">
+      <p>
+        © 2025 | All Rights Reserved by <strong>Lumière clinic</strong>
+      </p>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-in');
+
+      function handleScroll() {
+        elements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 50) {
+            el.classList.add('visible');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+
+      function loadUserData() {
+        let userData = localStorage.getItem("userData");
+        if (userData) {
+          userData = JSON.parse(userData);
+          document.getElementById("patientName").textContent = `Welcome, ${userData.firstName}`;
+
+          document.getElementById("patientInfo").innerHTML = `
+      <li><strong>Full Name:</strong> ${userData.firstName} ${userData.lastName}</li>
+      <li><strong>Email:</strong> ${userData.email}</li>
+      <li><strong>ID:</strong> ${userData.id}</li>
+      ${userData.gender ? `<li><strong>Gender:</strong> ${userData.gender}</li>` : ""} 
+        <li><strong>Date of Birth: </strong> ${userData.dob}</li>  `;
+        }
+      }
+      loadUserData();
+    });
+  </script>
+</body>
+
+</html>
