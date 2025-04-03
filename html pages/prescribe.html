@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Doctor | Prescribe</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/prescribe.css">
+
+</head>
+
+<body>
+  <div class="main">
+    <h1>Patient's Medications</h1>
+
+    <form id="Prescribe-form">
+      <div class="form-group">
+        <label>Patient's Name:</label>
+        <input type="text" id="patient-name" value="Sarah Ahmed">
+      </div>
+
+      <div class="form-group">
+        <label>Patient's Age:</label>
+        <input type="number" id="patient-age" value="30">
+      </div>
+
+      <div class="form-group">
+        <label>Gender: </label>
+        <label>Female <input type="radio" name="gender" value="female" checked></label>
+        <label>Male <input type="radio" name="gender" value="male"></label>
+      </div>
+
+      <div class="medication-group">
+        <label>Medication: </label>
+        <ul>
+          <li><label><input type="checkbox" name="Medication" value="Paracetamol" checked> Paracetamol</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Ibuprofen" checked> Ibuprofen</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Amoxicillin"> Amoxicillin</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Metformin"> Metformin</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Lisinopril" checked> Lisinopril</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Atorvastatin"> Atorvastatin</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Omeprazole"> Omeprazole</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Salbutamol"> Salbutamol</label></li>
+          <li><label><input type="checkbox" name="Medication" value="Hydrochlorothiazide"> Hydrochlorothiazide</label>
+          </li>
+          <li><label><input type="checkbox" name="Medication" value="Cetirizine"> Cetirizine</label></li>
+        </ul>
+      </div>
+
+      <button type="submit" class="submit"><a href="doctor.html" style="text-decoration: none;">Submit</a></button>
+    </form>
+  </div>
+
+</body>
+
+</html>
