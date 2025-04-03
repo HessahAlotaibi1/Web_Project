@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Doctor Homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/doctor.css">
+
+</head>
+
+<body>
+  <script src="script.js"></script>
+
+  <div class="header">
+    <a href="index.html" id="sign">Sign-out</a>
+    <header>
+      <h1 id="doctorName">Welcome, [Doctor Name]</h1>
+    </header>
+  </div>
+
+  <div class="doctor-info-container">
+    <img id="doctorPhoto" src="images/download.jpg" alt="Doctor Photo">
+    <div class="doctor-details">
+      <h2 style="text-align: left;  margin-left: 0px; ">Your Information</h2>
+      <ul id="doctorInfo"></ul>
+    </div>
+  </div>
+
+  <section>
+    <h2>Upcoming Appointments</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Patient's Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Reason for Visit</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="appointmentsTable">
+        <tr>
+          <td>2025-01-08</td>
+          <td>05:00 PM</td>
+          <td>Ali Saeed</td>
+          <td>57</td>
+          <td>Male</td>
+          <td>Teeth cleaning and tartar removal</td>
+          <td>Confirmed</td>
+        </tr>
+        <tr>
+          <td>2024-10-20</td>
+          <td>02:00 PM</td>
+          <td>Nourah Saleh</td>
+          <td>27</td>
+          <td>Female</td>
+          <td>Routine check-ups and health monitoring</td>
+          <td><button>Confirm</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Your Patients</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Medications</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="patientsTable">
+        <tr>
+          <td>Ahmed Saleh</td>
+          <td>27</td>
+          <td>Male</td>
+          <td>Atorvastatin <br> Lidocaine </td>
+          <td><a class="prescribe" href="prescribe.html">Prescribe</a></td>
+        </tr>
+        <tr>
+          <td>Sarah Ahmed</td>
+          <td>30</td>
+          <td>Female</td>
+          <td>Lisinopril <br> Ibuprofen <br> Paracetamol</td>
+          <td><a class="prescribe" href="prescribe.html">Prescribe</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <footer class="footer">
+    <!-- Contact Us-->
+    <h2>Contact Us</h2>
+    <ul>
+      <li>
+        <img src="images/facebook.png" alt="facebook" />
+        <a href="#">Lumièreclinic</a>
+      </li>
+      <li>
+        <img src="images/social-media.png" alt="x" />
+        <a href="#">@LumièreClinic</a>
+      </li>
+      <li>
+        <img src="images/instagram.png" alt="instagram" />
+        <a href="#">@Lumière_clinic</a>
+      </li>
+      <li>
+        <img src="images/mail.png" alt="gmail" />
+        <a href="#">info@lumièreclinic.com</a>
+      </li>
+      <li>
+        <img src="images/phone.png" alt="phone" />
+        <a href="#">+966 501 234 567</a>
+      </li>
+    </ul>
+    <div class="copyright">
+      <p>
+        © 2025 | All Rights Reserved by <strong>Lumière clinic</strong>
+      </p>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function loadUserData() {
+        let userData = localStorage.getItem("userData");
+        if (userData) {
+          userData = JSON.parse(userData);
+          document.getElementById("doctorName").textContent = `Welcome, ${userData.firstName}`;
+
+          document.getElementById("doctorInfo").innerHTML = ` 
+            <li><strong>Full Name:</strong> ${userData.firstName} ${userData.lastName}</li>
+            <li><strong>Email:</strong> ${userData.email}</li>
+            <li><strong>ID:</strong> ${userData.id}</li>
+            <li><strong>Speciality:</strong> ${userData.speciality}</li>
+          `;
+
+          const doctorPhoto = document.getElementById("doctorPhoto");
+          doctorPhoto.src = userData.photo ? `images/${userData.photo}` : "images/download.jpg";
+        }
+      }
+
+      loadUserData();
+    });
+  </script>
+
+</body>
+
+</html>
