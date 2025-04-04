@@ -24,7 +24,7 @@ function saveUserData(role) {
     }
 
     if (!userData.email) {
-        alert("❌ يرجى إدخال بريد إلكتروني صالح.");
+        alert("Please enter a valid email address.");
         return;
     }
 
@@ -39,35 +39,32 @@ function loadUserData() {
         userData = JSON.parse(userData);
 
         document.getElementById("userInfo").innerHTML = `
-            <h2>مرحبًا، ${sanitize(userData.firstName)}!</h2>
-            <p><strong>المعرف:</strong> ${sanitize(userData.id)}</p>
-            <p><strong>البريد الإلكتروني:</strong> ${sanitize(userData.email)}</p>
-            ${userData.speciality ? `<p><strong>التخصص:</strong> ${sanitize(userData.speciality)}</p>` : ""}
-            <p><strong>تاريخ الميلاد:</strong> ${sanitize(userData.dob)}</p>
-            <p><strong>الجنس:</strong> ${sanitize(userData.gender)}</p>
+            <h2>Hello ${sanitize(userData.firstName)}!</h2>
+            <p><strong>User:</strong> ${sanitize(userData.id)}</p>
+            <p><strong>Email:</strong> ${sanitize(userData.email)}</p>
+            ${userData.speciality ? `<p><strong>Specialization:</strong> ${sanitize(userData.speciality)}</p>` : ""}
+            <p><strong>Date of birth:</strong> ${sanitize(userData.dob)}</p>
+            <p><strong>Gender:</strong> ${sanitize(userData.gender)}</p>
         `;
     }
 }
 
-// دالة لاسترجاع قيمة المدخلات والتحقق من وجودها
 function getValue(id) {
     return document.getElementById(id)?.value.trim() || "";
 }
 
-// دالة للتحقق من صحة البريد الإلكتروني
 function validateEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email) ? email : "";
 }
 
-// دالة لتنظيف المدخلات لمنع XSS
 function sanitize(input) {
     return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 
 document.getElementById("booking-form").addEventListener("submit", function (event) {
-    event.preventDefault(); // منع التحديث الافتراضي للصفحة
+    event.preventDefault(); 
 
     const doctorName = document.getElementById("doctor-name").value;
     const appointmentDate = document.getElementById("appointment-date").value;
@@ -75,7 +72,7 @@ document.getElementById("booking-form").addEventListener("submit", function (eve
     const reason = document.getElementById("reason").value;
 
     if (!doctorName || !appointmentDate || !appointmentTime || !reason) {
-        alert("الرجاء تعبئة جميع الحقول!");
+        alert("Please fill in all fields!");
         return;
     }
 
@@ -88,9 +85,9 @@ document.getElementById("booking-form").addEventListener("submit", function (eve
     })
     .then(response => response.text())
     .then(data => {
-        alert(data); // عرض رسالة النجاح أو الفشل
-        if (data.includes("تم الحجز بنجاح")) {
-            window.location.href = "patient.php"; // تحويل المستخدم بعد نجاح الحجز
+        alert(data);
+        if (data.includes("Booking successful")) {
+            window.location.href = "patient.php";
         }
     })
     .catch(error => console.error("Error:", error));
