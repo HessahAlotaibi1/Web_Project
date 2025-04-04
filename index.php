@@ -46,7 +46,7 @@
   <div class="content">
 
     <h1 class="title">Our Vision</h1>
-    <p style="text-align: center; padding: 50px;">Our vision is to be a leading medical and aesthetic clinic that
+    <p style="text-align: center; padding: 5px 50px;  font-size: 18px;color: #666;">Our vision is to be a leading medical and aesthetic clinic that
       transforms lives through innovative healthcare solutions. We aim to set new standards in patient care by combining
       expertise, cutting-edge technology, and a holistic approach to wellness. At Lumière Clinic, we believe in
       empowering individuals by enhancing their natural beauty and promoting overall well-being,
@@ -54,7 +54,7 @@
 
 
     <h1 class="title">About us</h1>
-    <p style="text-align: center; padding: 50px;">At Lumière Clinic, we are dedicated to providing world-class medical
+    <p style="text-align: center; padding: 5px 50px;  font-size: 18px;color: #666;">At Lumière Clinic, we are dedicated to providing world-class medical
       and aesthetic services tailored to meet the unique needs of our patients. Our team of highly skilled professionals
       utilizes the latest technology and advanced medical techniques to ensure exceptional care and outstanding results.
       We take pride in offering a wide range of services, from general medicine and dermatology to cosmetic
