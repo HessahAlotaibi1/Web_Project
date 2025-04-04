@@ -85,6 +85,7 @@ function getDoctors() {
 
 <head>
   <title>Patient | Book an Appointment</title>
+  <link rel="icon" type="image/png" href="images/logo2.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/booking.css">
@@ -132,7 +133,7 @@ function getDoctors() {
             <select id="all_doctors" disabled>
                 <?php if ($doctors) { ?>
                 <?php foreach ($doctors as $key => $doctor) { ?>
-                <option value="<?= $doctor['id']; ?>" speciality="<?= $doctor['specialityID']; ?>">Dr. <?= $doctor['firstName']; ?> <?= $doctor['firstName']; ?></option>
+                <option value="<?= $doctor['id']; ?>" speciality="<?= $doctor['specialityID']; ?>">Dr. <?= $doctor['firstName']; ?> <?= $doctor['lastName']; ?></option>
                 <?php }} ?>
             </select>
           </div>
