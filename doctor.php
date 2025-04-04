@@ -46,7 +46,7 @@ function getDoctorAppointments($id) {
   global $error_msg;
 
   $id = mysqli_real_escape_string($conn, $id);
-  $sql = "SELECT a.*, p.id AS pid, p.firstName, p.lastName, p.Gender, TIMESTAMPDIFF(YEAR, p.`DoB`, CURDATE()) AS age, DATE_FORMAT(a.`time`,'%h:%i %p') AS time2 FROM `appointment` a LEFT JOIN `patient` p ON a.`patientID` = p.`id` WHERE a.`doctorID` = '$id' AND a.`status` != 'Done' ORDER BY a.`date`, a.`time` DESC;";
+  $sql = "SELECT a.*, p.id AS pid, p.firstName, p.lastName, p.Gender, TIMESTAMPDIFF(YEAR, p.`DoB`, CURDATE()) AS age, DATE_FORMAT(a.`time`,'%h:%i %p') AS time2 FROM `appointment` a LEFT JOIN `patient` p ON a.`patientID` = p.`id` WHERE a.`doctorID` = '$id' AND a.`status` != 'Done' ORDER BY a.`date` ASC, a.`time` ASC;";
   $result = mysqli_query($conn, $sql);
 
   if ($result) {
@@ -121,10 +121,29 @@ function confirmAppointment($id) {
 
 <head>
   <title>Doctor Homepage</title>
+  <link rel="icon" type="image/png" href="images/logo2.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/doctor.css">
+  <style>
+  .button {
+  background-color: #006e6e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+}
 
+.button:hover {
+  background-color: #004c4c;
+}
+  </style>
 </head>
 
 <body>
@@ -144,7 +163,7 @@ function confirmAppointment($id) {
       <ul id="doctorInfo">
         <li><strong>Full Name:</strong> <?= $user['firstName']; ?> <?= $user['lastName']; ?></li>
         <li><strong>Email:</strong> <?= $user['emailAddress']; ?></li>
-        <li><strong>ID:</strong> <?= $user['id']; ?></li>
+        <!--<li><strong>ID:</strong> <?= $user['id']; ?></li>-->
         <li><strong>Speciality:</strong> <?= $user['speciality']; ?></li>
       </ul>
     </div>
@@ -165,7 +184,7 @@ function confirmAppointment($id) {
         </tr>
       </thead>
       <tbody id="appointmentsTable">
-      <?php if ($appointments) {
+      <?php if ($appointments && mysqli_num_rows($appointments) > 0) {
         foreach ($appointments as $key => $appointment) { ?>
         <tr>
           <td><?= $appointment['date']; ?></td>
@@ -177,17 +196,22 @@ function confirmAppointment($id) {
           <td>
             <?= $appointment['status']; ?> </br> 
             <?php if ($appointment['status'] == 'Pending') { ?> 
-              <a href="doctor.php?action=Confirm&id=<?= $appointment['id']; ?>">
+              <a class="button" href="doctor.php?action=Confirm&id=<?= $appointment['id']; ?>">
               Confirm
               </a>
             <?php } else if ($appointment['status'] == 'Confirmed') { ?> 
-              <a href="prescribe.php?&aid=<?= $appointment['id']; ?>&pid=<?= $appointment['pid']; ?>">
+              <a class="button" href="prescribe.php?&aid=<?= $appointment['id']; ?>&pid=<?= $appointment['pid']; ?>">
               Prescribe
               </a>
             <?php } ?>
           </td>
         </tr>
-      <?php }} ?>
+      <?php }
+      } else { ?>
+      <tr>
+        <td colspan="7" style="text-align: center;">No appointments to display</td>
+      </tr>
+  <?php } ?>
       </tbody>
     </table>
   </section>
@@ -212,7 +236,11 @@ function confirmAppointment($id) {
           <td><?= $patient['Gender']; ?></td>
           <td><?= $patient['medications']; ?></td>
         </tr>
-      <?php }} ?>
+      <?php }}  else { ?>
+      <tr>
+        <td colspan="4" style="text-align: center;">No data to display</td>
+      </tr>
+  <?php }?>
       </tbody>
     </table>
   </section>
