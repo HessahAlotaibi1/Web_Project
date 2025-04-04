@@ -45,7 +45,7 @@ function getPatientAppointments($id) {
   global $error_msg;
 
   $id = mysqli_real_escape_string($conn, $id);
-  $sql = "SELECT a.*, d.id AS did, d.firstName, d.lastName, d.uniqueFileName AS d_photo, DATE_FORMAT(a.`time`,'%h:%i %p') AS time2 FROM `appointment` a LEFT JOIN `doctor` d ON a.`doctorID` = d.`id` WHERE a.`patientID` = '$id' AND a.`status` != 'Done' ORDER BY a.`date`, a.`time` DESC;";
+  $sql = "SELECT a.*, d.id AS did, d.firstName, d.lastName, d.uniqueFileName AS d_photo, DATE_FORMAT(a.`time`,'%h:%i %p') AS time2 FROM `appointment` a LEFT JOIN `doctor` d ON a.`doctorID` = d.`id` WHERE a.`patientID` = '$id' AND a.`status` != 'Done' ORDER BY a.`date` ASC, a.`time` ASC;";
   $result = mysqli_query($conn, $sql);
 
   if ($result) {
@@ -80,6 +80,7 @@ function cancelAppointment($id) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Homepage</title>
+    <link rel="icon" type="image/png" href="images/logo2.png">
     <link rel="stylesheet" href="css/patient.css">
 
     <script src="script.js"></script>
@@ -97,9 +98,9 @@ function cancelAppointment($id) {
             <ul id="patientInfo">
                 <li><strong>Full Name:</strong> <?= $user['firstName']; ?> <?= $user['lastName']; ?></li>
                 <li><strong>Email:</strong> <?= $user['emailAddress']; ?></li>
-                <li><strong>ID:</strong> <?= $user['id']; ?></li>
+              <!--  <li><strong>ID:</strong> <?= $user['id']; ?></li>
                 <li><strong>Gender:</strong> <?= $user['Gender']; ?></li>
-                <li><strong>Date of Birth:</strong> <?= $user['DoB']; ?></li>
+                <li><strong>Date of Birth:</strong> <?= $user['DoB']; ?></li>-->
             </ul>
         </section>
     </div>
@@ -120,7 +121,7 @@ function cancelAppointment($id) {
                     </tr>
                 </thead>
                 <tbody id="appointmentsTable">
-                    <?php if ($appointments) { foreach ($appointments as $key => $appointment) { ?>
+                    <?php if ($appointments && mysqli_num_rows($appointments) > 0) { foreach ($appointments as $key => $appointment) { ?>
                     <tr>
                         <td><?= $appointment['date']; ?></td>
                         <td><?= $appointment['time2']; ?></td>
@@ -129,7 +130,12 @@ function cancelAppointment($id) {
                         <td><?= $appointment['status']; ?></td>
                         <td><a class="cancel" href="patient.php?action=Cancel&id=<?= $appointment['id']; ?>"> Cancel</a></td>
                     </tr>
-                    <?php }} ?>
+                    <?php }
+                    } else { ?>
+                    <tr>
+                      <td colspan="6" style="text-align: center;">No appointments to display</td>
+                    </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </section>
