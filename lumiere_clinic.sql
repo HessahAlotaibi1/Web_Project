@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
--- http://www.phpmyadmin.net
+-- version 5.1.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 02, 2025 at 11:07 PM
--- Server version: 5.7.33-0ubuntu0.16.04.1
--- PHP Version: 7.0.33-0ubuntu0.16.04.16
+-- Host: localhost:3306
+-- Generation Time: 05 أبريل 2025 الساعة 00:01
+-- إصدار الخادم: 5.7.24
+-- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `it329_lumiere_clinic`
+-- Database: `lumiere_clinic`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appointment`
+-- بنية الجدول `appointment`
 --
 
 CREATE TABLE `appointment` (
@@ -36,10 +37,20 @@ CREATE TABLE `appointment` (
   `status` enum('Pending','Confirmed','Done') NOT NULL DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- إرجاع أو استيراد بيانات الجدول `appointment`
+--
+
+INSERT INTO `appointment` (`id`, `patientID`, `doctorID`, `date`, `time`, `reason`, `status`) VALUES
+(22, 6, 21, '2025-03-19', '15:00:00', 'Routine examination', 'Done'),
+(23, 6, 10, '2025-04-18', '17:00:00', 'See the result', 'Pending'),
+(24, 7, 17, '2025-04-07', '20:00:00', 'Toothache', 'Pending'),
+(25, 7, 21, '2025-03-30', '15:00:00', 'Headache', 'Done');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctor`
+-- بنية الجدول `doctor`
 --
 
 CREATE TABLE `doctor` (
@@ -53,18 +64,18 @@ CREATE TABLE `doctor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `doctor`
+-- إرجاع أو استيراد بيانات الجدول `doctor`
 --
 
 INSERT INTO `doctor` (`id`, `firstName`, `lastName`, `uniqueFileName`, `specialityID`, `emailAddress`, `password`) VALUES
-(1, 'Ahmed', 'Hassan', 'images/default_user.jpg', 1, 'ahmed.hassan@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(2, 'John', 'Smith', 'images/default_user.jpg', 1, 'john.smith@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(3, 'Mona', 'Youssef', 'images/default_user.jpg', 2, 'mona.youssef@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(4, 'Emily', 'Johnson', 'images/default_user.jpg', 2, 'emily.johnson@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(1, 'Ahmed', 'Hassan', 'images/Ahmed.jpeg', 1, 'ahmed.hassan@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(2, 'John', 'Smith', 'images/john.jpeg', 1, 'john.smith@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(3, 'Mona', 'Youssef', 'images/mona.jpeg', 2, 'mona.youssef@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(4, 'Emily', 'Johnson', 'images/emily.jpeg', 2, 'emily.johnson@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (5, 'Khaled', 'Omar', 'images/default_user.jpg', 3, 'khaled.omar@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(6, 'Sophia', 'Martinez', 'images/default_user.jpg', 3, 'sophia.martinez@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(6, 'Sophia', 'Martinez', 'images/sophia.jpeg', 3, 'sophia.martinez@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (7, 'salma', 'nabil', 'images/default_user.jpg', 4, 'salma.nabil@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(8, 'Robert', 'Williams', 'images/default_user.jpg', 4, 'robert.williams@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(8, 'Robert', 'Williams', 'images/robert.jpeg', 4, 'robert.williams@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (9, 'Youssef', 'Adel', 'images/default_user.jpg', 5, 'youssef.adel@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (10, 'David', 'Brown', 'images/default_user.jpg', 5, 'david.brown@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (11, 'Hanaa', 'Mostafa', 'images/default_user.jpg', 6, 'hanaa.mostafa@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
@@ -74,12 +85,13 @@ INSERT INTO `doctor` (`id`, `firstName`, `lastName`, `uniqueFileName`, `speciali
 (15, 'Rami', 'Fares', 'images/default_user.jpg', 8, 'rami.fares@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (16, 'Julia', 'Thompson', 'images/default_user.jpg', 8, 'julia.thompson@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (17, 'Omar', 'Tarek', 'images/default_user.jpg', 9, 'omar.tarek@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(18, 'Chris', 'Miller', 'images/default_user.jpg', 9, 'chris.miller@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra');
+(18, 'Chris', 'Miller', 'images/default_user.jpg', 9, 'chris.miller@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(21, 'Sara', 'Mohammed', 'uploads/67f07080247bc.jpg', 1, 'sara1988@email.com', '$2y$12$9YgYTwItuefgyiwxM6J8o.Rt7S5CslQIAgcLFm.jIp3IIgYQjEWtC');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medication`
+-- بنية الجدول `medication`
 --
 
 CREATE TABLE `medication` (
@@ -88,7 +100,7 @@ CREATE TABLE `medication` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `medication`
+-- إرجاع أو استيراد بيانات الجدول `medication`
 --
 
 INSERT INTO `medication` (`id`, `medicationName`) VALUES
@@ -106,7 +118,7 @@ INSERT INTO `medication` (`id`, `medicationName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patient`
+-- بنية الجدول `patient`
 --
 
 CREATE TABLE `patient` (
@@ -120,19 +132,21 @@ CREATE TABLE `patient` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `patient`
+-- إرجاع أو استيراد بيانات الجدول `patient`
 --
 
 INSERT INTO `patient` (`id`, `firstName`, `lastName`, `Gender`, `DoB`, `emailAddress`, `password`) VALUES
 (1, 'Nora', 'Saad', 'Female', '2010-03-01', 'nora.saad@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (2, 'Majed', 'Ahmed', 'Male', '1980-02-25', 'majed.ahmed@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
 (3, 'Leena', 'Naser', 'Female', '1985-08-04', 'leena.naser@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
-(4, 'Majed', 'Saleh', 'Male', '1990-02-23', 'majed.saleh@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra');
+(4, 'Majed', 'Saleh', 'Male', '1990-02-23', 'majed.saleh@email.com', '$2y$12$44QSEkXKS1ZRKrkZd52gG.Ja0CizYu9tGMmTEM3s8nkeBvLOH.5ra'),
+(6, 'Lulu', 'Salem', 'Female', '1999-06-15', 'lulu1999@email.com', '$2y$12$6nYyucYoengptpwXcJY23.2WTpxWVMWJuLN/Zfm4qn9u2Pu7z799e'),
+(7, 'Saad', 'Saleh', 'Female', '2002-06-09', 'saad2@email.com', '$2y$12$zixg0nV7NSmw8pg0pM7Yu.2yxmfe3lKT0fG/iAMDmZYnn5bqG3gzW');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prescription`
+-- بنية الجدول `prescription`
 --
 
 CREATE TABLE `prescription` (
@@ -141,10 +155,19 @@ CREATE TABLE `prescription` (
   `medicationID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- إرجاع أو استيراد بيانات الجدول `prescription`
+--
+
+INSERT INTO `prescription` (`id`, `appointmentID`, `medicationID`) VALUES
+(8, 22, 1),
+(9, 22, 5),
+(10, 25, 1);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `speciality`
+-- بنية الجدول `speciality`
 --
 
 CREATE TABLE `speciality` (
@@ -154,7 +177,7 @@ CREATE TABLE `speciality` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `speciality`
+-- إرجاع أو استيراد بيانات الجدول `speciality`
 --
 
 INSERT INTO `speciality` (`id`, `speciality`, `group`) VALUES
@@ -222,55 +245,62 @@ ALTER TABLE `speciality`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `medication`
 --
 ALTER TABLE `medication`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `prescription`
 --
 ALTER TABLE `prescription`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `speciality`
 --
 ALTER TABLE `speciality`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
--- Constraints for dumped tables
+-- قيود الجداول المحفوظة
 --
 
 --
--- Constraints for table `appointment`
+-- القيود للجدول `appointment`
 --
 ALTER TABLE `appointment`
   ADD CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`doctorID`) REFERENCES `doctor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`patientID`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `doctor`
+-- القيود للجدول `doctor`
 --
 ALTER TABLE `doctor`
   ADD CONSTRAINT `doctor_ibfk_1` FOREIGN KEY (`specialityID`) REFERENCES `speciality` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `prescription`
+-- القيود للجدول `prescription`
 --
 ALTER TABLE `prescription`
   ADD CONSTRAINT `prescription_ibfk_1` FOREIGN KEY (`appointmentID`) REFERENCES `appointment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prescription_ibfk_2` FOREIGN KEY (`medicationID`) REFERENCES `medication` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
