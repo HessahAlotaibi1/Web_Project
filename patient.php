@@ -84,12 +84,32 @@ function cancelAppointment($id) {
     <link rel="stylesheet" href="css/patient.css">
 
     <script src="script.js"></script>
+    <style>
+    #sign {
+  background-color: white;
+  color: #04b3b3;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  padding: 10px ;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+}
 
+#sign:hover {
+  background-color: #04b3b3;
+  color: white;
+}
+    </style>
 </head>
 
 <body>
     <div class="header fade-in">
-    <a href="logout.php" id="sign">log-out</a>
+    <a href="logout.php" id="sign">Sign-out</a>
         <header>
             <h1 id="patientName">Welcome, <?= $user['firstName']; ?> <?= $user['lastName']; ?></h1>
         </header>
