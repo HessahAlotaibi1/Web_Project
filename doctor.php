@@ -143,6 +143,28 @@ function confirmAppointment($id) {
 .button:hover {
   background-color: #004c4c;
 }
+  
+  #sign {
+  background-color: white;
+  color: #04b3b3;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  padding: 10px ;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+#sign:hover {
+  background-color: #04b3b3;
+  color: white;
+  transform: scale(1);
+  }
+  
   </style>
 </head>
 
@@ -150,7 +172,7 @@ function confirmAppointment($id) {
   <script src="script.js"></script>
 
   <div class="header">
-    <a href="logout.php" id="sign">log-out</a>
+    <a href="logout.php" id="sign">Sign-out</a>
     <header>
       <h1 id="doctorName">Welcome, <?= $user['firstName']; ?> <?= $user['lastName']; ?></h1>
     </header>
