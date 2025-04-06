@@ -58,19 +58,20 @@ function login_doctor($email, $password) {
   $sql = "SELECT * FROM `doctor` WHERE `emailAddress` = '$emailAddress';"; 
   $result = mysqli_query($conn, $sql);
 
-  if ($result) {
+  if ($result && mysqli_num_rows($result) > 0) {
       $user = mysqli_fetch_assoc($result);
       if (password_verify($password, $user['password'])) {
           return $user['id'];
-      }  else {
-          $error_msg = "Email or password not matched.";
+      } else {
+          $error_msg = "Email or password is incorrect.";
           return false;
       }
+  } else {
+      $error_msg = "No account found with that email.";
+      return false;
   }
-
-  $error_msg = "Error, Can not login." . mysqli_error($conn) . $sql;
-  return false;
 }
+
 
 function login_patient($email, $password) {
   global $conn;
@@ -87,18 +88,18 @@ function login_patient($email, $password) {
   $sql = "SELECT * FROM `patient` WHERE `emailAddress` = '$emailAddress';"; 
   $result = mysqli_query($conn, $sql);
 
-  if ($result) {
+  if ($result && mysqli_num_rows($result) > 0) {
       $user = mysqli_fetch_assoc($result);
       if (password_verify($password, $user['password'])) {
           return $user['id'];
-      }  else {
-          $error_msg = "Email or password not matched.";
+      } else {
+          $error_msg = "Email or password is incorrect.";
           return false;
       }
+  } else {
+      $error_msg = "No account found with that email.";
+      return false;
   }
-
-  $error_msg = "Error, Can not login." . mysqli_error($conn) . $sql;
-  return false;
 }
 
 
@@ -117,6 +118,18 @@ function login_patient($email, $password) {
 </head>
 
 <body>
+      <?php if (!empty($error_msg)): ?>
+  <div class="alert error-alert">
+    <?= $error_msg ?>
+  </div>
+      <?php endif; ?>
+
+     <?php if (!empty($success_msg)): ?>
+      <div class="alert success-alert">
+         <?= $success_msg ?>
+      </div>
+    <?php endif; ?>
+
     <img src="images/logogreen.png" alt="Logo">
     <div class="tabs">
         <a href="#" class="active">Login</a>
@@ -139,13 +152,7 @@ function login_patient($email, $password) {
         <input type="submit" value="Log In" id="log-button">
     </form>
 
-    <?php
-            if (!empty($error_msg)) {
-              echo "<script type='text/javascript'>alert('$error_msg');</script>";
-            } else if (!empty($success_msg)) {
-              echo "<script type='text/javascript'>alert('$success_msg');</script>";
-            }
-        ?>
+   
 </body>
 
 </html>
