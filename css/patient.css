@@ -92,23 +92,24 @@ body {
 
 
 #sign {
-  color: rgb(120, 120, 120);
+  background-color: white;
+  color: #04b3b3;
   text-decoration: none;
-  border: 1px solid gray;
-  border-radius: 15px;
-  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px ;
+  font-size: 16px;
   font-weight: bold;
   transition: all 0.3s ease;
   float: right;
   margin-right: 20px;
+  margin-top: 20px;
 }
 
 #sign:hover {
-  color: #006e6e;
-  transform: scale(1.1);
-  font-size: 18px;
+  background-color: #04b3b3;
+  color: white;
 }
-
 
 .fade-in {
   opacity: 0;
