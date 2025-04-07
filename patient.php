@@ -82,9 +82,7 @@ function cancelAppointment($id) {
     <title>Patient Homepage</title>
     <link rel="icon" type="image/png" href="images/logo2.png">
     <link rel="stylesheet" href="css/patient.css">
-
     <script src="script.js"></script>
-    <style>
 </head>
 
 <body>
