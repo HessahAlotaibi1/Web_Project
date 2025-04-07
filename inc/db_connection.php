@@ -4,17 +4,11 @@ $username = "root";
 $password = "root";
 $dbname = "lumiere_clinic";
 
-// إنشاء اتصال
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// التحقق من الاتصال
 if ($conn->connect_error) {
-    die("فشل الاتصال بقاعدة البيانات: " . $conn->connect_error);
+    die("Erorr connection to the database: " . $conn->connect_error);
 }
-
-// إذا نجح الاتصال
-//echo "تم الاتصال بقاعدة البيانات بنجاح!";
-
 
 
 function executeQuery($query) {
@@ -27,8 +21,5 @@ function executeQuery($query) {
 	else
 		return $result;
 }
-
-
-
 
 ?>
