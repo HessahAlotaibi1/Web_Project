@@ -125,47 +125,6 @@ function confirmAppointment($id) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/doctor.css">
-  <style>
-  .button {
-  background-color: #006e6e;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
-  text-decoration: none;
-  font-size: 14px;
-  display: inline-block;
-  text-align: center;
-}
-
-.button:hover {
-  background-color: #004c4c;
-}
-  
-  #sign {
-  background-color: white;
-  color: #04b3b3;
-  text-decoration: none;
-  border: none;
-  border-radius: 10px;
-  padding: 10px ;
-  font-size: 16px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  float: right;
-  margin-right: 20px;
-  margin-top: 20px;
-}
-
-#sign:hover {
-  background-color: #04b3b3;
-  color: white;
-  transform: scale(1);
-  }
-  
-  </style>
 </head>
 
 <body>
