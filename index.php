@@ -22,7 +22,7 @@
       <a href="signup.php" class="signup-link">Sign Up</a>
     </div>
   </header>
-  <br>
+  
   <div class="slider-container">
 
     <div class="swiper">
