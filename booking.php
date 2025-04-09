@@ -89,7 +89,6 @@ function getDoctors() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/booking.css">
-  <script src="bookingform.js"></script>
 </head>
 
 <body id="Patient">
@@ -174,8 +173,10 @@ function getDoctors() {
 
 <script>
   const allDoctorsDropdown = document.getElementById("all_doctors");
+  const specialityDropdown = document.getElementById("speciality");
 
-    document.getElementById("speciality").addEventListener("change", function () {
+  if (specialityDropdown) {
+    specialityDropdown.addEventListener("change", function () {
       const selectedSpecialty = this.value;
 
       if (!selectedSpecialty) return;
@@ -192,9 +193,11 @@ function getDoctors() {
           doctorDropdown.appendChild(option);
         }
       }
-      
+
       document.getElementById("doctors_div").style.visibility = "visible";
     });
-  </script>
+  }
+</script>
+
 
 </html>
