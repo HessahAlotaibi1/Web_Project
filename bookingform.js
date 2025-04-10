@@ -1,3 +1,5 @@
+//we did this code in phase 1 but now it gave an error in the console so we spreated the code into two files in case we need it
+//but for now we didn't had any issue in the booking form
 document.getElementById("booking-form").addEventListener("submit", function (event) {
   event.preventDefault(); 
 
