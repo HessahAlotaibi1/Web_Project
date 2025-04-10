@@ -118,18 +118,21 @@ function login_patient($email, $password) {
 </head>
 
 <body>
-      <?php if (!empty($error_msg)): ?>
-  <div class="alert error-alert">
-    <?= $error_msg ?>
-  </div>
-      <?php endif; ?>
-
-     <?php if (!empty($success_msg)): ?>
-      <div class="alert success-alert">
-         <?= $success_msg ?>
+<div class="alert-container">
+    <?php if (!empty($error_msg)): ?>
+      <div class="alert error-alert">
+        <?= $error_msg ?>
+        <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
       </div>
     <?php endif; ?>
 
+    <?php if (!empty($success_msg)): ?>
+      <div class="alert success-alert">
+        <?= $success_msg ?>
+        <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+      </div>
+    <?php endif; ?>
+</div>
     <img src="images/logogreen.png" alt="Logo">
     <div class="tabs">
         <a href="#" class="active">Login</a>
@@ -152,7 +155,22 @@ function login_patient($email, $password) {
         <input type="submit" value="Log In" id="log-button">
     </form>
 
-   
+   <script>
+   //for the alert
+  document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".alert");
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        alert.style.opacity = "0";
+        alert.style.transform = "translateY(-10px)";
+        setTimeout(() => {
+          alert.style.display = "none";
+        }, 500);
+      }, 4000); 
+    });
+  });
+</script>
+
 </body>
 
 </html>
