@@ -123,29 +123,27 @@ body {
 }
 
 #booking {
-  position: relative;
-  left: 980px;
-  top: 55px;
-  display: inline;
+  position: static;
+  display: block;
+  margin: 10px 20px 0 auto;
+  margin-top: 50px;
+  width: fit-content;
+  font-size: 16px;
+  line-height: normal;
+  padding: 12px 20px;
+  text-align: center;
+  border-radius: 50px;
   background-color: #B1F0F7;
   color: #000000;
-  text-decoration: none;
-  border-radius: 150px;
-  width: 100px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
   font-weight: bold;
+  text-decoration: none;
   transition: all 0.3s ease;
-  padding: 11px;
-  margin-right: 20%;
-
 }
+
 
 #booking:hover {
   color: #006e6e;
   transform: scale(1.1);
-  font-size: 18px;
 }
 
 .info {
@@ -160,8 +158,8 @@ body {
 
 li {
   position: relative;
-  left: 30px;
-  list-style: circle;
+  left: 10px;
+  list-style: none;
 }
 
 .cancel {
@@ -227,12 +225,41 @@ li {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  section h2 {
+    text-align: center;
+    margin-left: 0;
+    font-size: 20px;
+  }
+
+  table {
+    width: 95%;
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  table img {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    display: block;
+  }
+
   .slider-container {
     height: 300px;
   }
 
   .welcome-message {
-    font-size: 28px;
+    font-size: 24px;
+    text-align: center;
   }
 
   .specialities-container {
@@ -242,6 +269,58 @@ li {
 
   .footer ul {
     flex-direction: column;
+    align-items: center;
     gap: 15px;
+    padding: 0;
+    margin: 0 auto;
   }
+  
+  .footer li {
+    flex-direction: row; 
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;    
+    max-width: 300px;        
+  }
+  
+  #sign {
+    float: right;
+    display: inline-block;
+    margin: 10px 20px 0 0;
+    width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  #booking {
+    position: static;
+    display: block;
+    margin: 20px 20px 0 auto;
+    width: fit-content;
+    height: auto;
+    font-size: 16px;
+    line-height: normal;
+    padding: 12px 20px;
+    text-align: center;
+    border-radius: 50px;
+  }
+  
+
+  #patientInfo {
+    font-size: 16px;
+  }
+
+  li {
+    left: 10px;
+  }
+
+  .header {
+    text-align: left;
+  }
+
+  .middle {
+    padding: 10px;
+  }
+
 }
