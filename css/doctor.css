@@ -1,3 +1,4 @@
+/* ========== GENERAL STYLES ========== */
 body {
   margin: 0;
   padding: 0;
@@ -12,8 +13,8 @@ body {
   padding: 20px;
   text-align: left;
   color: #006e6e;
+  position: relative;
 }
-
 
 #sign {
   background-color: white;
@@ -21,7 +22,7 @@ body {
   text-decoration: none;
   border: none;
   border-radius: 10px;
-  padding: 10px ;
+  padding: 10px;
   font-size: 16px;
   font-weight: bold;
   transition: all 0.3s ease;
@@ -45,6 +46,7 @@ body {
   width: 80%;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
 }
 
 #doctorPhoto {
@@ -58,6 +60,7 @@ body {
 
 .doctor-details {
   text-align: left;
+  flex: 1;
 }
 
 .doctor-details h2 {
@@ -87,9 +90,7 @@ table {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-table,
-th,
-td {
+table, th, td {
   border: 1px solid #ddd;
 }
 
@@ -105,7 +106,7 @@ td {
   text-align: center;
 }
 
-button {
+button, .button {
   background-color: #006e6e;
   color: white;
   border: none;
@@ -113,40 +114,30 @@ button {
   cursor: pointer;
   border-radius: 5px;
   transition: 0.3s;
-}
-
-button:hover {
-  background-color: #004c4c;
-}
-
-.button {
-  background-color: #006e6e;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
-  text-decoration: none;
   font-size: 14px;
-  display: inline-block;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.button:hover {
+button:hover, .button:hover {
   background-color: #004c4c;
 }
-.prescribe{
+
+.prescribe {
   text-decoration: none;
   color: #006e6e;
-}  
+}
+
 .prescribe:active {
   color: #04b3b3;
 }
+
 /* ========== FOOTER ========== */
 .footer {
   background-image: url("../images/Background.gif");
-  background-size: cover;  color: white;
+  background-size: cover;
+  color: white;
   padding: 50px 20px;
   text-align: center;
 }
@@ -162,6 +153,7 @@ button:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
+  padding: 0;
 }
 
 .footer li {
@@ -199,21 +191,65 @@ button:hover {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .slider-container {
-    height: 300px;
+  .header {
+    text-align: left;
   }
 
-  .welcome-message {
-    font-size: 28px;
+  #sign {
+    float: right;
+    margin: 20px 20px 0 0;
+    display: inline-block;
+    width: auto;
+    font-size: 14px;
+    padding: 8px 12px;
   }
+  
 
-  .specialities-container {
+  .doctor-info-container {
     flex-direction: column;
     align-items: center;
+    width: 90%;
+    padding: 15px;
+  }
+
+  #doctorPhoto {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  table {
+    width: 95%;
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
   }
 
   .footer ul {
     flex-direction: column;
+    align-items: center;
     gap: 15px;
+    padding: 0;
+    margin: 0 auto;
+  }
+  
+  .footer li {
+    flex-direction: row; 
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;    
+    max-width: 300px;  
+    left: 10px;      
+  }
+
+  .doctor-details {
+    text-align: center;
+  }
+
+  section h2 {
+    text-align: center;
+    margin-left: 0;
   }
 }
