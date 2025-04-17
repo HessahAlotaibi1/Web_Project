@@ -252,4 +252,22 @@ button:hover, .button:hover {
     text-align: center;
     margin-left: 0;
   }
+  .button{
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+.table-wrapper{
+  table-layout: fixed;  
+  width: 100%;
+  font-size: 14px;
+}
+
+td, th {
+  white-space: normal; 
+  padding: 4px;
+  text-align: center;
+}
+
 }
