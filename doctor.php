@@ -152,6 +152,7 @@ function confirmAppointment($id) {
 
   <section>
     <h2>Upcoming Appointments</h2>
+    <div class="table-wrapper">
     <table>
       <thead>
         <tr>
@@ -195,6 +196,7 @@ function confirmAppointment($id) {
   <?php } ?>
       </tbody>
     </table>
+    </div>
   </section>
 
   <section>
