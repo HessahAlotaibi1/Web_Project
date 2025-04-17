@@ -193,6 +193,11 @@ function getSpecialities() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/singup.css">
     <script src="script.js"></script>
+    <style>
+    form {
+    display: none;
+    }
+    </style>
 
 </head>
 
@@ -206,7 +211,7 @@ function getSpecialities() {
     <div class="rolesholder">
         <label class="roles">Your role: </label>
         <label class="roles">
-            <input type="radio" name="role" value="Doctor" id="doctorRole" checked>Doctor
+            <input type="radio" name="role" value="Doctor" id="doctorRole" >Doctor
         </label>
         <label class="roles">
             <input type="radio" name="role" value="Patient" id="patientRole">Patient
@@ -312,8 +317,9 @@ function getSpecialities() {
             }
         ?>
     <script>
-    window.onload = function() {
-        document.getElementById("Patient").style.display = "none";
+    window.onload = function () {
+    doctorForm.style.display = "none";
+    patientForm.style.display = "none";
     };
     const doctorRole = document.getElementById("doctorRole");
     const patientRole = document.getElementById("patientRole");
