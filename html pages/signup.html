@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/singup.css">
-  
+
   <script src="script.js"></script>
 
 </head>
@@ -186,11 +186,11 @@
   </script>
   <script>
     function saveUserData(role) {
-    let userData = {};
-    let gender = document.querySelector('input[name="gender"]:checked')?.value;
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
+      let userData = {};
+      let gender = document.querySelector('input[name="gender"]:checked')?.value;
+      let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
 
-    if (role === "doctor") {
+      if (role === "doctor") {
         let firstName = document.getElementById("firstName").value.trim();
         let lastName = document.getElementById("lastName").value.trim();
         let id = document.getElementById("doctorID").value.trim();
@@ -199,19 +199,19 @@
         let photo = document.getElementById("photo").files[0]?.name;
 
         if (!firstName || !lastName || !id || !email || !speciality || !gender) {
-            alert("All fields are required except for the photo!");
-            return;
+          alert("All fields are required except for the photo!");
+          return;
         }
 
         if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address!");
-            return;
+          alert("Please enter a valid email address!");
+          return;
         }
 
         userData = { firstName, lastName, id, email, speciality, gender, photo };
-    } 
-    
-    else if (role === "patient") {
+      }
+
+      else if (role === "patient") {
         let firstName = document.getElementById("patientFirstName").value.trim();
         let lastName = document.getElementById("patientLastName").value.trim();
         let id = document.getElementById("patientID").value.trim();
@@ -219,26 +219,26 @@
         let dob = document.getElementById("dob").value.trim();
 
         if (!firstName || !lastName || !id || !email || !dob || !gender) {
-            alert("All fields are required!");
-            return;
+          alert("All fields are required!");
+          return;
         }
 
         if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address!");
-            return;
+          alert("Please enter a valid email address!");
+          return;
         }
 
         userData = { firstName, lastName, id, email, dob, gender };
-    }
+      }
 
-    localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("userData", JSON.stringify(userData));
 
-    if (role === "doctor") {
+      if (role === "doctor") {
         window.location.href = "doctor.html";
-    } else {
+      } else {
         window.location.href = "patient.html";
+      }
     }
-}
 
   </script>
 </body>
