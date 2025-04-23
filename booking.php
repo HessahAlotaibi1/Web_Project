@@ -8,43 +8,25 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'patient') {
 }
 
 $user_id = $_SESSION['user_id'];
+$error_msg = '';
 
-$specialties = getSpecialities();
-$selected_speciality = '';
-$filtered_doctors = [];
-$selected_doctor = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['form2-submit'])) {
+    $doctor_id = $_POST['doctor'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $reason = $_POST['reason'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['form1-submit'])) {
-        $selected_speciality = $_POST['speciality'];
-        $filtered_doctors = getDoctorsBySpeciality($selected_speciality);
-    } elseif (isset($_POST['form2-submit'])) {
-        $doctor_id = $_POST['doctor'];
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $reason = $_POST['reason'];
-
-        if (bookAppointment($user_id, $doctor_id, $date, $time, $reason)) {
-            header('Location:patient.php');
-            exit;
-        } else {
-            $error_msg = "Failed to book the appointment.";
-        }
+    if (bookAppointment($user_id, $doctor_id, $date, $time, $reason)) {
+        header('Location:patient.php');
+        exit;
+    } else {
+        $error_msg = "Failed to book the appointment.";
     }
 }
-
-// ======= FUNCTIONS =========
 
 function getSpecialities() {
     global $conn;
     $sql = "SELECT * FROM `speciality`;";
-    $result = mysqli_query($conn, $sql);
-    return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
-}
-
-function getDoctorsBySpeciality($specialityID) {
-    global $conn;
-    $sql = "SELECT * FROM `doctor` WHERE `specialityID` = '$specialityID'";
     $result = mysqli_query($conn, $sql);
     return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 }
@@ -57,6 +39,8 @@ function bookAppointment($patient_id, $doctor_id, $date, $time, $reason) {
             VALUES ('$patient_id', '$doctor_id', '$date', '$time', '$reason', 'Pending')";
     return mysqli_query($conn, $sql);
 }
+
+$specialties = getSpecialities();
 ?>
 
 <!DOCTYPE html>
@@ -71,34 +55,25 @@ function bookAppointment($patient_id, $doctor_id, $date, $time, $reason) {
   <div class="main">
     <h1>Book an Appointment</h1>
 
-    <!-- Form 1: Select Speciality -->
-    <form method="post" action="">
-      <div class="form-group">
-        <label for="speciality">Speciality:</label>
-        <select name="speciality" id="speciality" required>
-          <option value="" disabled <?= $selected_speciality == '' ? 'selected' : '' ?>>Select a speciality</option>
-          <?php foreach ($specialties as $speciality): ?>
-            <option value="<?= $speciality['id']; ?>" <?= $selected_speciality == $speciality['id'] ? 'selected' : '' ?>>
-              <?= $speciality['speciality']; ?>
-            </option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-      <button type="submit" id="select-specialty-btn" name="form1-submit">Submit</button>
-    </form>
+    <!-- Speciality Dropdown -->
+    <div class="form-group">
+      <label for="speciality">Speciality:</label>
+      <select name="speciality" id="speciality" required>
+        <option value="" disabled selected>Select a speciality</option>
+        <?php foreach ($specialties as $speciality): ?>
+          <option value="<?= $speciality['id']; ?>">
+            <?= $speciality['speciality']; ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+    </div>
 
-    <!-- Form 2: Booking Details -->
-    <?php if (!empty($filtered_doctors)): ?>
+    <!-- Booking Form -->
     <form method="post" action="" style="margin-top: 30px;">
-      <div class="form-group">
+      <div class="form-group" id="doctor-div" style="display: none;">
         <label for="doctor">Select Doctor:</label>
         <select name="doctor" id="doctor" required>
           <option value="" disabled selected>Select a Doctor</option>
-          <?php foreach ($filtered_doctors as $doc): ?>
-            <option value="<?= $doc['id']; ?>">
-              Dr. <?= $doc['firstName'] . ' ' . $doc['lastName']; ?>
-            </option>
-          <?php endforeach; ?>
         </select>
       </div>
 
@@ -119,11 +94,35 @@ function bookAppointment($patient_id, $doctor_id, $date, $time, $reason) {
 
       <button type="submit" id="booking" name="form2-submit">Submit Booking</button>
 
-      <?php if (isset($error_msg)): ?>
+      <?php if (!empty($error_msg)): ?>
         <p style="color:red;"><?= $error_msg; ?></p>
       <?php endif; ?>
     </form>
-    <?php endif; ?>
   </div>
+
+  <script>
+    document.getElementById("speciality").addEventListener("change", function () {
+      const specialityId = this.value;
+
+      fetch("get_doctors.php?speciality_id=" + specialityId)
+        .then(response => response.json())
+        .then(data => {
+          const doctorSelect = document.getElementById("doctor");
+          doctorSelect.innerHTML = '<option value="" disabled selected>Select a Doctor</option>';
+          
+          data.forEach(doctor => {
+            const option = document.createElement("option");
+            option.value = doctor.id;
+            option.textContent = "Dr. " + doctor.firstName + " " + doctor.lastName;
+            doctorSelect.appendChild(option);
+          });
+
+          document.getElementById("doctor-div").style.display = "block";
+        })
+        .catch(error => {
+          console.error("Error fetching doctors:", error);
+        });
+    });
+  </script>
 </body>
 </html>
