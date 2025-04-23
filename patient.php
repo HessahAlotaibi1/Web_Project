@@ -30,6 +30,33 @@ function getPatientAppointments($id) {
             ORDER BY a.date ASC, a.time ASC";
     return mysqli_query($conn, $sql);
 }
+
+// التحقق من طول الباسوورد عند تغييره
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
+    $password = $_POST['password'];
+
+    // التحقق من طول الباسوورد
+    if (strlen($password) < 8) {
+        $error = "الباسوورد يجب أن يحتوي على 8 أحرف على الأقل.";
+    } elseif (strlen($password) > 8) {
+        $error = "الباسوورد يجب أن يحتوي على 8 أحرف فقط.";
+    }
+
+    // إذا تم التحقق بنجاح، قم بتحديث الباسوورد في قاعدة البيانات
+    if (!isset($error)) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "UPDATE patient SET password = '$hashed_password' WHERE id = '$user_id'";
+        $result = mysqli_query($conn, $sql);
+        
+        if ($result) {
+            echo "تم تحديث الباسوورد بنجاح.";
+        } else {
+            echo "حدث خطأ أثناء تحديث الباسوورد.";
+        }
+    } else {
+        echo $error; // عرض الخطأ للمستخدم.
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +108,7 @@ function getPatientAppointments($id) {
                             <td>Dr. <?= $appointment['firstName']; ?> <?= $appointment['lastName']; ?></td>
                             <td><img src="<?= $appointment['d_photo']; ?>" alt="Doctor's Photo"></td>
                             <td><?= $appointment['status']; ?></td>
-                            <td><a href="#" class="cancel" data-id="<?= $appointment['id']; ?>">Cancel</a></td>
+                            <td><button class="cancel-btn" type="button" data-id="<?= $appointment['id']; ?>">Cancel</button></td>
                         </tr>
                     <?php }
                 } else { ?>
@@ -90,6 +117,16 @@ function getPatientAppointments($id) {
             </tbody>
         </table>
     </section>
+</div>
+
+<!-- تغيير الباسوورد -->
+<div class="password-update">
+    <h3>Update Your Password</h3>
+    <form action="patient_homepage.php" method="POST">
+        <label for="password">New Password:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Update Password</button>
+    </form>
 </div>
 
 <footer class="footer">
@@ -126,11 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- AJAX Cancel Appointment -->
 <script>
 $(document).ready(function(){
-    $('.cancel').click(function(e){
+    $('.cancel-btn').click(function(e){
         e.preventDefault();
         if (!confirm("هل أنت متأكد من إلغاء الموعد؟")) return;
+
         const id = $(this).data('id');
         const row = $('#row_' + id);
+
         $.ajax({
             url: 'ajax_cancel.php',
             type: 'POST',
@@ -141,6 +180,9 @@ $(document).ready(function(){
                 } else {
                     alert("فشل في إلغاء الموعد. حاول لاحقًا.");
                 }
+            },
+            error: function() {
+                alert("حدث خطأ في الاتصال بالسيرفر.");
             }
         });
     });

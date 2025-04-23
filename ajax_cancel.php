@@ -9,9 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_affected_rows($conn) > 0) {
-        echo "true";
+        echo 'true';
     } else {
-        echo "false";
+        echo 'false';
     }
+} else {
+    echo 'false';
 }
 ?>
