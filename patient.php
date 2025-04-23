@@ -30,33 +30,6 @@ function getPatientAppointments($id) {
             ORDER BY a.date ASC, a.time ASC";
     return mysqli_query($conn, $sql);
 }
-
-// التحقق من طول الباسوورد عند تغييره
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
-    $password = $_POST['password'];
-
-    // التحقق من طول الباسوورد
-    if (strlen($password) < 8) {
-        $error = "الباسوورد يجب أن يحتوي على 8 أحرف على الأقل.";
-    } elseif (strlen($password) > 8) {
-        $error = "الباسوورد يجب أن يحتوي على 8 أحرف فقط.";
-    }
-
-    // إذا تم التحقق بنجاح، قم بتحديث الباسوورد في قاعدة البيانات
-    if (!isset($error)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "UPDATE patient SET password = '$hashed_password' WHERE id = '$user_id'";
-        $result = mysqli_query($conn, $sql);
-        
-        if ($result) {
-            echo "تم تحديث الباسوورد بنجاح.";
-        } else {
-            echo "حدث خطأ أثناء تحديث الباسوورد.";
-        }
-    } else {
-        echo $error; // عرض الخطأ للمستخدم.
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -119,16 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
     </section>
 </div>
 
-<!-- تغيير الباسوورد -->
-<div class="password-update">
-    <h3>Update Your Password</h3>
-    <form action="patient_homepage.php" method="POST">
-        <label for="password">New Password:</label>
-        <input type="password" name="password" id="password" required>
-        <button type="submit">Update Password</button>
-    </form>
-</div>
-
 <footer class="footer">
     <h2>Contact Us</h2>
     <ul>
@@ -143,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
     </div>
 </footer>
 
-<!-- Animation Scroll -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const elements = document.querySelectorAll('.fade-in');
@@ -160,12 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<!-- AJAX Cancel Appointment -->
 <script>
 $(document).ready(function(){
     $('.cancel-btn').click(function(e){
         e.preventDefault();
-        if (!confirm("هل أنت متأكد من إلغاء الموعد؟")) return;
+        if (!confirm("Are you sure you want to cancel this appointment?")) return;
 
         const id = $(this).data('id');
         const row = $('#row_' + id);
@@ -178,11 +139,11 @@ $(document).ready(function(){
                 if(response.trim() === "true"){
                     row.fadeOut(300, function(){ $(this).remove(); });
                 } else {
-                    alert("فشل في إلغاء الموعد. حاول لاحقًا.");
+                    alert("Failed to cancel the appointment. Please try again later.");
                 }
             },
             error: function() {
-                alert("حدث خطأ في الاتصال بالسيرفر.");
+                alert("An error occurred while connecting to the server.");
             }
         });
     });
