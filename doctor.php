@@ -14,16 +14,6 @@ $user = getDoctorInfo($user_id);
 $appointments = getDoctorAppointments($user_id);
 $patients = getDoctorPatients($user_id);
 
-if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])){
-  $action = isset($_GET['action']) ? $_GET['action'] : '';
-
-  if ($action == 'Confirm') {
-    $id = isset($_GET['id']) ? $_GET['id'] : '';
-    if(confirmAppointment($id))
-      exit(header("location:doctor.php"));
-  }
-}
-
 function getDoctorInfo($id) {
   global $conn;
   global $error_msg;
@@ -98,27 +88,10 @@ function getPatientMedication($patient_id, $doctor_id) {
   $error_msg = "Error, Can not get data.";
   return false;
 }
-
-function confirmAppointment($id) {
-  global $conn;
-  global $error_msg;
-
-  $id = mysqli_real_escape_string($conn, $id);
-  $sql = "UPDATE `appointment` SET `status` = 'Confirmed' WHERE id = '$id';";
-   $result = mysqli_query($conn, $sql);
-  if ($result) {
-    return true;
-  }
-
-  $error_msg = "Can not update appointment.";
-  return false;
-}
-
 ?>
 
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Doctor Homepage</title>
   <link rel="icon" type="image/png" href="images/logo2.png">
@@ -126,10 +99,7 @@ function confirmAppointment($id) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/doctor.css">
 </head>
-
 <body>
-  <script src="script.js"></script>
-
   <div class="header">
     <a href="logout.php" id="sign">Sign-out</a>
     <header>
@@ -140,11 +110,10 @@ function confirmAppointment($id) {
   <div class="doctor-info-container">
     <img id="doctorPhoto" src="<?= $user['uniqueFileName']; ?>" alt="Doctor Photo">
     <div class="doctor-details">
-      <h2 style="text-align: left;  margin-left: 0px; ">Your Information</h2>
+      <h2 style="text-align: left; margin-left: 0px;">Your Information</h2>
       <ul id="doctorInfo">
         <li><strong>Full Name:</strong> <?= $user['firstName']; ?> <?= $user['lastName']; ?></li>
         <li><strong>Email:</strong> <?= $user['emailAddress']; ?></li>
-        <!--<li><strong>ID:</strong> <?= $user['id']; ?></li>-->
         <li><strong>Speciality:</strong> <?= $user['speciality']; ?></li>
       </ul>
     </div>
@@ -153,49 +122,43 @@ function confirmAppointment($id) {
   <section>
     <h2>Upcoming Appointments</h2>
     <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Patient's Name</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Reason for Visit</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="appointmentsTable">
-      <?php if ($appointments && mysqli_num_rows($appointments) > 0) {
-        foreach ($appointments as $key => $appointment) { ?>
-        <tr>
-          <td><?= $appointment['date']; ?></td>
-          <td><?= $appointment['time2']; ?></td>
-          <td><?= $appointment['firstName']; ?> <?= $appointment['lastName']; ?></td>
-          <td><?= $appointment['age']; ?></td>
-          <td><?= $appointment['Gender']; ?></td>
-          <td><?= $appointment['reason']; ?></td>
-          <td>
-            <?= $appointment['status']; ?> </br> 
-            <?php if ($appointment['status'] == 'Pending') { ?> 
-              <a class="button" href="doctor.php?action=Confirm&id=<?= $appointment['id']; ?>">
-              Confirm
-              </a>
-            <?php } else if ($appointment['status'] == 'Confirmed') { ?> 
-              <a class="button" href="prescribe.php?&aid=<?= $appointment['id']; ?>&pid=<?= $appointment['pid']; ?>">
-              Prescribe
-              </a>
-            <?php } ?>
-          </td>
-        </tr>
-      <?php }
-      } else { ?>
-      <tr>
-        <td colspan="7" style="text-align: center;">No appointments to display</td>
-      </tr>
-  <?php } ?>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Patient's Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Reason for Visit</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="appointmentsTable">
+          <?php if ($appointments && mysqli_num_rows($appointments) > 0) {
+            foreach ($appointments as $appointment) { ?>
+              <tr>
+                <td><?= $appointment['date']; ?></td>
+                <td><?= $appointment['time2']; ?></td>
+                <td><?= $appointment['firstName']; ?> <?= $appointment['lastName']; ?></td>
+                <td><?= $appointment['age']; ?></td>
+                <td><?= $appointment['Gender']; ?></td>
+                <td><?= $appointment['reason']; ?></td>
+                <td>
+                  <?= $appointment['status']; ?><br>
+                  <?php if ($appointment['status'] == 'Pending') { ?>
+                    <button class="confirm-btn" data-id="<?= $appointment['id']; ?>">Confirm</button>
+                  <?php } else if ($appointment['status'] == 'Confirmed') { ?>
+                    <a class="button" href="prescribe.php?aid=<?= $appointment['id']; ?>&pid=<?= $appointment['pid']; ?>">Prescribe</a>
+                  <?php } ?>
+                </td>
+              </tr>
+            <?php }
+          } else { ?>
+            <tr><td colspan="7" style="text-align: center;">No appointments to display</td></tr>
+          <?php } ?>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -211,78 +174,61 @@ function confirmAppointment($id) {
         </tr>
       </thead>
       <tbody id="patientsTable">
-      <?php if ($patients) {
-        foreach ($patients as $key => $patient) { ?>
-        <tr>
-          <td><?= $patient['firstName']; ?> <?= $patient['lastName']; ?></td>
-          <td><?= $patient['age']; ?></td>
-          <td><?= $patient['Gender']; ?></td>
-          <td><?= $patient['medications']; ?></td>
-        </tr>
-      <?php }}  else { ?>
-      <tr>
-        <td colspan="4" style="text-align: center;">No data to display</td>
-      </tr>
-  <?php }?>
+        <?php if ($patients) {
+          foreach ($patients as $patient) { ?>
+            <tr>
+              <td><?= $patient['firstName']; ?> <?= $patient['lastName']; ?></td>
+              <td><?= $patient['age']; ?></td>
+              <td><?= $patient['Gender']; ?></td>
+              <td><?= $patient['medications']; ?></td>
+            </tr>
+          <?php }
+        } else { ?>
+          <tr><td colspan="4" style="text-align: center;">No data to display</td></tr>
+        <?php } ?>
       </tbody>
     </table>
   </section>
+
   <footer class="footer">
-    <!-- Contact Us-->
     <h2>Contact Us</h2>
     <ul>
-      <li>
-        <img src="images/facebook.png" alt="facebook" />
-        <a href="#">Lumièreclinic</a>
-      </li>
-      <li>
-        <img src="images/social-media.png" alt="x" />
-        <a href="#">@LumièreClinic</a>
-      </li>
-      <li>
-        <img src="images/instagram.png" alt="instagram" />
-        <a href="#">@Lumière_clinic</a>
-      </li>
-      <li>
-        <img src="images/mail.png" alt="gmail" />
-        <a href="#">info@lumièreclinic.com</a>
-      </li>
-      <li>
-        <img src="images/phone.png" alt="phone" />
-        <a href="#">+966 501 234 567</a>
-      </li>
+      <li><img src="images/facebook.png" alt="facebook" /> <a href="#">Lumièreclinic</a></li>
+      <li><img src="images/social-media.png" alt="x" /> <a href="#">@LumièreClinic</a></li>
+      <li><img src="images/instagram.png" alt="instagram" /> <a href="#">@Lumière_clinic</a></li>
+      <li><img src="images/mail.png" alt="gmail" /> <a href="#">info@lumièreclinic.com</a></li>
+      <li><img src="images/phone.png" alt="phone" /> <a href="#">+966 501 234 567</a></li>
     </ul>
     <div class="copyright">
-      <p>
-        © 2025 | All Rights Reserved by <strong>Lumière clinic</strong>
-      </p>
+      <p>© 2025 | All Rights Reserved by <strong>Lumière clinic</strong></p>
     </div>
   </footer>
+
   <script>
-    /*
     document.addEventListener('DOMContentLoaded', () => {
-      function loadUserData() {
-        let userData = localStorage.getItem("userData");
-        if (userData) {
-          userData = JSON.parse(userData);
-          document.getElementById("doctorName").textContent = `Welcome, ${userData.firstName}`;
+      document.querySelectorAll('.confirm-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const appointmentId = button.getAttribute('data-id');
 
-          document.getElementById("doctorInfo").innerHTML = ` 
-            <li><strong>Full Name:</strong> ${userData.firstName} ${userData.lastName}</li>
-            <li><strong>Email:</strong> ${userData.email}</li>
-            <li><strong>ID:</strong> ${userData.id}</li>
-            <li><strong>Speciality:</strong> ${userData.speciality}</li>
-          `;
-
-          const doctorPhoto = document.getElementById("doctorPhoto");
-          doctorPhoto.src = userData.photo ? `images/${userData.photo}` : "images/download.jpg";
-        }
-      }
-
-      loadUserData();
-    });*/
+          fetch('confirm_appointment.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'id=' + appointmentId
+          })
+          .then(response => response.text())
+          .then(data => {
+            if (data.trim() === 'true') {
+              button.parentElement.innerHTML = 'Confirmed';
+            } else {
+              alert('Failed to confirm appointment.');
+            }
+          })
+          .catch(error => {
+            alert('AJAX error: ' + error);
+          });
+        });
+      });
+    });
   </script>
-
 </body>
-
 </html>
