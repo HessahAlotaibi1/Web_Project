@@ -30,6 +30,33 @@ function getPatientAppointments($id) {
             ORDER BY a.date ASC, a.time ASC";
     return mysqli_query($conn, $sql);
 }
+<<<<<<< HEAD
+=======
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
+    $password = $_POST['password'];
+
+    if (strlen($password) < 8) {
+        $error = "The password must contain at least 8 characters.";
+    } elseif (strlen($password) > 8) {
+        $error = "The password must contain only 8 characters.";
+    }
+
+    if (!isset($error)) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "UPDATE patient SET password = '$hashed_password' WHERE id = '$user_id'";
+        $result = mysqli_query($conn, $sql);
+        
+        if ($result) {
+            echo "Password updated successfully.";
+        } else {
+            echo "An error occurred while updating the password.";
+        }
+    } else {
+        echo $error; 
+    }
+}
+>>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
 ?>
 
 <!DOCTYPE html>
@@ -92,6 +119,18 @@ function getPatientAppointments($id) {
     </section>
 </div>
 
+<<<<<<< HEAD
+=======
+<div class="password-update">
+    <h3>Update Your Password</h3>
+    <form action="patient_homepage.php" method="POST">
+        <label for="password">New Password:</label>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Update Password</button>
+    </form>
+</div>
+
+>>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
 <footer class="footer">
     <h2>Contact Us</h2>
     <ul>
@@ -126,7 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function(){
     $('.cancel-btn').click(function(e){
         e.preventDefault();
+<<<<<<< HEAD
         if (!confirm("Are you sure you want to cancel this appointment?")) return;
+=======
+        if (!confirm("Are you sure you want to cancel the appointment?")) return;
+>>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
 
         const id = $(this).data('id');
         const row = $('#row_' + id);
@@ -139,7 +182,11 @@ $(document).ready(function(){
                 if(response.trim() === "true"){
                     row.fadeOut(300, function(){ $(this).remove(); });
                 } else {
+<<<<<<< HEAD
                     alert("Failed to cancel the appointment. Please try again later.");
+=======
+                    alert("Failed to cancel appointment. Try again later.");
+>>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
                 }
             },
             error: function() {
