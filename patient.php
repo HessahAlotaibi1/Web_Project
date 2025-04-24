@@ -30,34 +30,6 @@ function getPatientAppointments($id) {
             ORDER BY a.date ASC, a.time ASC";
     return mysqli_query($conn, $sql);
 }
-<<<<<<< HEAD
-=======
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
-    $password = $_POST['password'];
-
-    if (strlen($password) < 8) {
-        $error = "The password must contain at least 8 characters.";
-    } elseif (strlen($password) > 8) {
-        $error = "The password must contain only 8 characters.";
-    }
-
-    if (!isset($error)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "UPDATE patient SET password = '$hashed_password' WHERE id = '$user_id'";
-        $result = mysqli_query($conn, $sql);
-        
-        if ($result) {
-            echo "Password updated successfully.";
-        } else {
-            echo "An error occurred while updating the password.";
-        }
-    } else {
-        echo $error; 
-    }
-}
->>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
-?>
 
 <!DOCTYPE html>
 <html lang="en">
