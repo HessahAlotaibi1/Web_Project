@@ -137,11 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function(){
     $('.cancel-btn').click(function(e){
         e.preventDefault();
-<<<<<<< HEAD
         if (!confirm("Are you sure you want to cancel this appointment?")) return;
-=======
         if (!confirm("Are you sure you want to cancel the appointment?")) return;
->>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
 
         const id = $(this).data('id');
         const row = $('#row_' + id);
@@ -154,11 +151,8 @@ $(document).ready(function(){
                 if(response.trim() === "true"){
                     row.fadeOut(300, function(){ $(this).remove(); });
                 } else {
-<<<<<<< HEAD
                     alert("Failed to cancel the appointment. Please try again later.");
-=======
                     alert("Failed to cancel appointment. Try again later.");
->>>>>>> a3d5eae588b87bf6aa8cb4b04189f7e6fc034fad
                 }
             },
             error: function() {
