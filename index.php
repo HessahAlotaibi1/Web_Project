@@ -15,7 +15,7 @@
 
 <header class="header">
     <div class="logo">
-      <img src="images/logogreen.png" alt="Logo">
+      <a style="text-decoration: none;" href="https://lumiere.infinityfreeapp.com/web_project/index.php"><img src="images/logogreen.png" alt="Logo"></a>
     </div>
     <div class="header-right">
       <a href="login.php"> <button class="login-btn">Login</button></a>
