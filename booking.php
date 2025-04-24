@@ -47,6 +47,7 @@ $specialties = getSpecialities();
 <html>
 <head>
   <title>Book Appointment</title>
+  <link rel="icon" type="image/png" href="images/logo2.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/booking.css">
@@ -68,9 +69,9 @@ $specialties = getSpecialities();
       </select>
     </div>
 
-    <!-- Booking Form -->
-    <form method="post" action="" style="margin-top: 30px;">
-      <div class="form-group" id="doctor-div" style="display: none;">
+    <!-- Booking Form (Hidden Initially) -->
+    <form method="post" action="" id="booking-form" style="margin-top: 30px; display:none;">
+      <div class="form-group">
         <label for="doctor">Select Doctor:</label>
         <select name="doctor" id="doctor" required>
           <option value="" disabled selected>Select a Doctor</option>
@@ -117,7 +118,7 @@ $specialties = getSpecialities();
             doctorSelect.appendChild(option);
           });
 
-          document.getElementById("doctor-div").style.display = "block";
+          document.getElementById("booking-form").style.display = "block";
         })
         .catch(error => {
           console.error("Error fetching doctors:", error);
