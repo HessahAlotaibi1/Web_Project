@@ -339,8 +339,19 @@ function getSpecialities() {
         let userData = {};
         let gender = document.querySelector('input[name="gender"]:checked')?.value;
         let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email validation regex
+        if (password.length < 8) {
+        alert("Password must be at least 6 characters.");
+        return;
+        }
+
 
         if (role === "doctor") {
+          let password = document.getElementById("password").value.trim();
+          if (password.length < 8) {
+              alert("Password must be at least 8 characters.");
+              return;
+          }
+
             let firstName = document.getElementById("firstName").value.trim();
             let lastName = document.getElementById("lastName").value.trim();
             let email = document.getElementById("email").value.trim();
@@ -358,6 +369,12 @@ function getSpecialities() {
             }
             doctorForm.submit();
         } else if (role === "patient") {
+          let password = document.getElementById("password").value.trim();
+          if (password.length < 8) {
+              alert("Password must be at least 8 characters.");
+              return;
+          }
+
             let firstName = document.getElementById("patientFirstName").value.trim();
             let lastName = document.getElementById("patientLastName").value.trim();
             let email = document.getElementById("patientEmail").value.trim();
