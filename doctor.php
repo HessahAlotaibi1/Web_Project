@@ -218,8 +218,14 @@ function getPatientMedication($patient_id, $doctor_id) {
           .then(response => response.text())
           .then(data => {
             if (data.trim() === 'true') {
-              button.parentElement.innerHTML = 'Confirmed';
-            } else {
+            const pid = button.getAttribute('data-pid');
+            const aid = appointmentId;
+            button.parentElement.innerHTML = `
+              Confirmed<br>
+              <a class="button" href="prescribe.php?aid=${aid}&pid=${pid}">Prescribe</a>
+            `;
+          }
+          else {
               alert('Failed to confirm appointment.');
             }
           })
