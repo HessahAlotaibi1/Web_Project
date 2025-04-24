@@ -152,6 +152,15 @@ function login_patient($email, $password) {
                 <input type="radio" name="role" value="patient" id="patientRole">Patient
             </label>
         </div>
+        <br>
+      <label>
+        <a href="newpass.php" style="color: #006e6e; text-decoration: none; font-size: 18px; font-weight: 500;"
+          onmouseover="this.style.color='#006e6e'; this.style.textDecoration='underline';"
+          onmouseout="this.style.color='#006e6e'; this.style.textDecoration='none';">
+          Forgot my password
+        </a>
+      </label>
+
         <input type="submit" value="Log In" id="log-button">
     </form>
 
